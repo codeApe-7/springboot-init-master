@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xin.springbootinit.common.BaseResponse;
 import com.xin.springbootinit.common.ErrorCode;
 import com.xin.springbootinit.common.ResultUtils;
-import com.xin.springbootinit.config.WxOpenConfig;
 import com.xin.springbootinit.constant.UserConstant;
 import com.xin.springbootinit.exception.BusinessException;
 import com.xin.springbootinit.exception.ThrowUtils;
@@ -18,12 +17,7 @@ import com.xin.springbootinit.model.vo.LoginUserVO;
 import com.xin.springbootinit.model.vo.UserVO;
 import com.xin.springbootinit.service.UserService;
 import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
-import me.chanjar.weixin.common.bean.oauth2.WxOAuth2AccessToken;
-import me.chanjar.weixin.mp.api.WxMpService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
@@ -44,8 +38,6 @@ public class UserController {
     @Resource
     private UserService userService;
 
-    @Resource
-    private WxOpenConfig wxOpenConfig;
 
 
 

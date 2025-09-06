@@ -1,188 +1,268 @@
 # SpringBoot 项目初始模板
 
+基于 Java SpringBoot 的项目初始模板，整合了常用框架和主流业务的示例代码。该模板提供了完整的用户管理功能、权限认证、文件上传等常见后端功能，便于快速开发各类Web应用。
 
+![GitHub](https://img.shields.io/github/license/aiaicoder/springboot-init)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.3-green)
+![Java](https://img.shields.io/badge/Java-17-blue)
 
-基于 Java SpringBoot 的项目初始模板，整合了常用框架和主流业务的示例代码。
+## 目录
 
-只需 1 分钟即可完成内容网站的后端！！！大家还可以在此基础上快速开发自己的项目。
+- [项目特点](#项目特点)
+- [技术栈](#技术栈)
+- [功能模块](#功能模块)
+- [项目结构](#项目结构)
+- [快速开始](#快速开始)
+- [配置说明](#配置说明)
+- [部署指南](#部署指南)
+- [API文档](#api文档)
+- [贡献](#贡献)
+- [许可证](#许可证)
 
-[toc]
+## 项目特点
 
-## 模板特点
+- 🚀 **快速开发**：集成常用框架，减少重复工作
+- 🔐 **权限认证**：基于 Sa-Token 的安全认证机制
+- 🗃️ **数据存储**：支持 MySQL、Redis 等多种数据存储
+- 📦 **文件存储**：集成腾讯云 COS 对象存储
+- 🧠 **AI能力**：集成 LangChain4j 提供 AI 功能
+- 📋 **接口文档**：集成 Knife4j 自动生成 API 文档
+- 🧪 **测试支持**：提供完整的单元测试示例
+- 🐳 **容器化**：支持 Docker 部署
 
-### 主流框架 & 特性
+## 技术栈
 
-- Spring Boot 2.7.x（贼新）
-- Spring MVC
-- MyBatis + MyBatis Plus 数据访问（开启分页）
-- Spring Boot 调试工具和项目处理器
-- Spring AOP 切面编程
-- Spring Scheduler 定时任务
-- Spring 事务注解
-- sa-token权限认证
+| 技术 | 版本 | 说明 |
+|------|------|------|
+| Spring Boot | 3.5.3 | 核心框架 |
+| Sa-Token | 1.44.0 | 权限认证框架 |
+| MyBatis Plus | 3.5.14 | ORM框架 |
+| Redis | - | 缓存数据库 |
+| MySQL | 8.0+ | 关系型数据库 |
+| LangChain4j | 1.4.0 | AI集成框架 |
+| Knife4j | 4.4.0 | API文档工具 |
 
-### 数据存储
+## 功能模块
 
-- MySQL 数据库
-- Redis 内存数据库
-- Elasticsearch 搜索引擎
-- 腾讯云 COS 对象存储
+- 用户注册、登录、登出
+- 用户信息管理
+- 权限角色管理
+- 文件上传（支持腾讯云COS）
+- AI问答功能
+- 全局异常处理
+- 统一响应封装
+- 分页查询支持
+- 数据校验
 
-### 工具类
+## 项目结构
 
-- Easy Excel 表格处理
-- Hutool 工具库
-- Apache Commons Lang3 工具类
-- Lombok 注解
+```
+.
+├── sql                           # 数据库脚本
+│   └── create_table.sql          # 建表SQL
+├── src                           # 源码目录
+│   └── main                      # 主代码目录
+│       ├── java                  # Java源码
+│       │   └── com.xin.springbootinit
+│       │       ├── MainApplication.java     # 启动类
+│       │       ├── common        # 通用类
+│       │       │   ├── BaseResponse.java    # 统一响应结果
+│       │       │   ├── DeleteRequest.java   # 删除请求
+│       │       │   ├── ErrorCode.java       # 错误码
+│       │       │   ├── PageRequest.java     # 分页请求
+│       │       │   └── ResultUtils.java     # 响应工具类
+│       │       ├── config        # 配置类
+│       │       │   ├── COS       # 腾讯云COS配置
+│       │       │   ├── Mp        # MyBatis Plus配置
+│       │       │   ├── Redis     # Redis配置
+│       │       │   ├── SaToken   # 权限认证配置
+│       │       │   └── JsonConfig.java      # JSON配置
+│       │       ├── constant      # 常量类
+│       │       ├── controller    # 控制器
+│       │       │   ├── AdminUserController.java
+│       │       │   ├── FileController.java
+│       │       │   └── UserController.java
+│       │       ├── exception     # 异常处理
+│       │       │   ├── BusinessException.java
+│       │       │   ├── GlobalExceptionHandler.java
+│       │       │   └── ThrowUtils.java
+│       │       ├── factory       # 工厂类
+│       │       ├── manager       # 通用业务处理层
+│       │       │   └── CosManager.java
+│       │       ├── mapper        # 数据访问层
+│       │       │   └── UserMapper.java
+│       │       ├── model         # 数据模型
+│       │       │   ├── dto       # 数据传输对象
+│       │       │   ├── entity    # 实体类
+│       │       │   ├── enums     # 枚举类
+│       │       │   └── vo        # 视图对象
+│       │       ├── service       # 业务逻辑层
+│       │       │   ├── impl      # 业务实现
+│       │       │   ├── AiService.java
+│       │       │   └── UserService.java
+│       │       └── utils         # 工具类
+│       └── resources             # 资源文件
+│           ├── mapper            # MyBatis Mapper XML
+│           ├── application.yml   # 主配置文件
+│           ├── application-dev.yml  # 开发环境配置
+│           └── application-prod.yml # 生产环境配置
+├── Dockerfile                    # Docker配置文件
+├── pom.xml                       # Maven依赖配置
+└── README.md                     # 项目说明文档
+```
 
-### 业务特性
+## 快速开始
 
-- Spring Session Redis 分布式登录
-- 全局请求响应拦截器（记录日志）
-- 全局异常处理器
-- 自定义错误码
-- 封装通用响应类
-- Swagger + Knife4j 接口文档
-- 自定义权限注解 + 全局校验
-- 全局跨域处理
-- 长整数丢失精度解决
-- 多环境配置
-- Sa-Token 拦截器
-- 自定义权限认证接口扩展
+### 环境要求
 
+- Java 17+
+- Maven 3.6+
+- MySQL 8.0+
+- Redis 5.0+
 
-## 业务功能
+### 数据库配置
 
-- 提供示例 SQL（用户、帖子、帖子点赞、帖子收藏表）
-- 用户登录、注册、注销、更新、检索、权限管理
-- 帖子创建、删除、编辑、更新、数据库检索、ES 灵活检索
-- 帖子点赞、取消点赞
-- 帖子收藏、取消收藏、检索已收藏帖子
-- 帖子全量同步 ES、增量同步 ES 定时任务
-- 支持微信开放平台登录
-- 支持微信公众号订阅、收发消息、设置菜单
-- 支持分业务的文件上传
-- 支持前后端分离（无Cookie模式）
+1. 创建数据库并执行建表脚本：
 
-### 单元测试
+```sql
+-- 创建数据库
+create database if not exists my_db;
 
-- JUnit5 单元测试
-- 示例单元测试类
+-- 使用数据库
+use my_db;
 
-### 架构设计
+-- 创建用户表
+create table if not exists user
+(
+    id           varchar(32) auto_increment comment 'id' primary key,
+    userAccount  varchar(256)                           not null comment '账号',
+    userPassword varchar(512)                           not null comment '密码',
+    userName     varchar(256)                           null comment '用户昵称',
+    Sex          tinyint(1)   default 1                 null comment '1：男,0:女',
+    Email        varchar(50)                            not null comment '邮箱',
+    userAvatar   varchar(1024)                          null comment '用户头像',
+    userProfile  varchar(512)                           null comment '用户简介',
+    userRole     varchar(256) default 'user'            not null comment '用户角色：user/admin/ban',
+    createTime   datetime     default CURRENT_TIMESTAMP not null comment '创建时间',
+    updateTime   datetime     default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
+    isDelete     tinyint      default 0                 not null comment '是否删除',
+    constraint idx_Email
+        unique (Email)
+) comment '用户' collate = utf8mb4_unicode_ci;
+```
 
-- 合理分层
+2. 修改 `src/main/resources/application-dev.yml` 中的数据库配置：
 
-
-## 快速上手
-
-> 所有需要修改的地方都标记了 `todo`，便于大家找到修改的位置~
-
-### MySQL 数据库
-
-1）修改 `application.yml` 的数据库配置为你自己的：
-
-```yml
+```yaml
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/my_db
-    username: root
-    password: 123456
+    username: your_username
+    password: your_password
 ```
 
-2）执行 `sql/create_table.sql` 中的数据库语句，自动创建库表
+### Redis配置
 
-3）启动项目，访问 `http://localhost:8101/api/doc.html` 即可打开接口文档，不需要写前端就能在线调试接口了~
+修改 `src/main/resources/application-dev.yml` 中的Redis配置：
 
-![](doc/swagger.png)
-
-### Redis+so-token 分布式登录(默认jackson序列化)
-
-1）修改 `application.yml` 的 Redis 配置为你自己的：
-
-```yml
-  redis:
-    database: 0
-    host: 换成你自己的
-    port: 6379
-    timeout: 5000
-    password: 123456
-    lettuce:
-      pool:
-          # 连接池最大连接数
-          max-active: 200
-          # 连接池最大阻塞等待时间（使用负值表示没有限制）
-          max-wait: -1ms
-          # 连接池中的最大空闲连接
-          max-idle: 10
-          # 连接池中的最小空闲连接
-          min-idle: 0
+```yaml
+spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: your_password
 ```
+
+### 启动项目
+
+```bash
+# 克隆项目
+git clone https://github.com/aiaicoder/springboot-init.git
+
+# 进入项目目录
+cd springboot-init
+
+# 编译项目
+mvn clean compile
+
+# 运行项目
+mvn spring-boot:run
+```
+
+或者直接运行 [MainApplication.java](file:///D:/www/planetProject/back-end-Template/springboot-init-master/src/main/java/com/xin/springbootinit/MainApplication.java) 启动项目。
+
+## 配置说明
+
+### 应用配置
+
+项目使用多环境配置，通过 `spring.profiles.active` 指定当前环境：
+
+- `application.yml` - 主配置文件
+- `application-dev.yml` - 开发环境配置
+- `application-prod.yml` - 生产环境配置
+
+### 权限认证配置
 
 ```yaml
 sa-token:
-  # token 名称（同时也是 cookie 名称）
-  token-name: satoken
-  # token 有效期（单位：秒） 默认30天，-1 代表永久有效
-  timeout: 2592000
-  # token 最低活跃频率（单位：秒），如果 token 超过此时间没有访问系统就会被冻结，默认-1 代表不限制，永不冻结
-  active-timeout: -1
-  # 是否允许同一账号多地同时登录 （为 true 时允许一起登录, 为 false 时新登录挤掉旧登录）
-  is-concurrent: true
-  # 在多人登录同一账号时，是否共用一个 token （为 true 时所有登录共用一个 token, 为 false 时每次登录新建一个 token）
-  is-share: true
-  # token 风格（默认可取值：uuid、simple-uuid、random-32、random-64、random-128、tik）
-  token-style: uuid
-  # 是否输出操作日志
-  is-log: true
+  token-name: satoken              # token名称
+  timeout: 2592000                 # token有效期（秒）
+  active-timeout: -1               # 活跃超时时间
+  is-concurrent: true              # 是否允许并发登录
+  is-share: true                   # 是否共享token
+  token-style: random-64           # token风格
+  is-log: true                     # 是否输出日志
 ```
 
+### 腾讯云COS配置
 
-
-3）移除 `MainApplication` 类开头 `@SpringBootApplication` 注解内的 exclude 参数：
-
-修改前：
-
-```java
-@SpringBootApplication(exclude = {RedisAutoConfiguration.class})
+```yaml
+cos:
+  client:
+    accessKey: your_access_key
+    secretKey: your_secret_key
+    region: your_region
+    bucket: your_bucket
 ```
 
-修改后：
+## 部署指南
 
+### 本地部署
 
-```java
-@SpringBootApplication
+```bash
+# 打包项目
+mvn clean package
+
+# 运行jar包
+java -jar target/springboot-init-0.0.1-SNAPSHOT.jar
 ```
 
-### Elasticsearch 搜索引擎
+### Docker部署
 
-1）修改 `application.yml` 的 Elasticsearch 配置为你自己的：
+```bash
+# 构建镜像
+docker build -t springboot-init .
 
-```yml
-spring:
-  elasticsearch:
-    uris: http://localhost:9200
-    username: root
-    password: 123456
+# 运行容器
+docker run -d -p 8101:8101 springboot-init
 ```
 
-2）复制 `sql/post_es_mapping.json` 文件中的内容，通过调用 Elasticsearch 的接口或者 Kibana Dev Tools 来创建索引（相当于数据库建表）
+## API文档
+
+项目集成了 Knife4j API 文档工具，启动项目后访问：
 
 ```
-PUT post_v1
-{
- 参数见 sql/post_es_mapping.json 文件
-}
+http://localhost:8101/api/doc.html
 ```
 
-这步不会操作的话需要补充下 Elasticsearch 的知识，或者自行百度一下~
+可以在线查看和测试所有API接口。
 
-3）开启同步任务，将数据库的帖子同步到 Elasticsearch
+## 贡献
 
-找到 job 目录下的 `FullSyncPostToEs` 和 `IncSyncPostToEs` 文件，取消掉 `@Component` 注解的注释，再次执行程序即可触发同步：
+欢迎提交 Issue 和 Pull Request 进行贡献。
 
-```java
-// todo 取消注释开启任务
-//@Component
-```
+## 许可证
+
+[MIT](LICENSE) © 程序员小新
