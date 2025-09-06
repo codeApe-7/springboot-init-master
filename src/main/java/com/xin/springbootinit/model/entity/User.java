@@ -26,7 +26,7 @@ public class User implements Serializable {
      * id
      */
     @TableId(type = IdType.ASSIGN_ID)
-    private Long id;
+    private String id;
 
 
     /**
@@ -92,8 +92,6 @@ public class User implements Serializable {
      * 1：男,0:女
      */
     private Integer sex;
-
-
 
     /**
      * 是否删除

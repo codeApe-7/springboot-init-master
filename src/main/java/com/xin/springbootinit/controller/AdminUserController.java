@@ -15,14 +15,10 @@ import com.xin.springbootinit.model.dto.user.UserUpdateRequest;
 import com.xin.springbootinit.model.entity.User;
 import com.xin.springbootinit.model.vo.UserVO;
 import com.xin.springbootinit.service.UserService;
+import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
-import java.util.List;
 
 import static com.xin.springbootinit.service.impl.UserServiceImpl.SALT;
 
@@ -49,7 +45,7 @@ public class AdminUserController {
      */
     @PostMapping("/add")
     @SaCheckRole(UserConstant.ADMIN_ROLE)
-    public BaseResponse<Long> addUser(@RequestBody UserAddRequest userAddRequest) {
+    public BaseResponse<String> addUser(@RequestBody UserAddRequest userAddRequest) {
         if (userAddRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }

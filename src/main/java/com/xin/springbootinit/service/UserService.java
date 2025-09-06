@@ -7,7 +7,8 @@ import com.xin.springbootinit.model.entity.User;
 import com.xin.springbootinit.model.vo.LoginUserVO;
 import com.xin.springbootinit.model.vo.UserVO;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+
+import jakarta.servlet.http.HttpServletRequest;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
 
 /**
@@ -28,16 +29,6 @@ public interface UserService extends IService<User> {
      */
     long userRegister(String userAccount, String userPassword, String checkPassword);
 
-    /**
-     * 用户登录
-     *
-     * @param userAccount  用户账户
-     * @param userPassword 用户密码
-     * @param request
-     * @return 脱敏后的用户信息
-     */
-    LoginUserVO userLogin(String userAccount, String userPassword, HttpServletRequest request);
-
 
     /**
      * 用户登录
@@ -48,22 +39,6 @@ public interface UserService extends IService<User> {
      */
     LoginUserVO userLogin(String userAccount, String userPassword);
 
-    /**
-     * 用户登录（微信开放平台）
-     *
-     * @param wxOAuth2UserInfo 从微信获取的用户信息
-     * @param request
-     * @return 脱敏后的用户信息
-     */
-    LoginUserVO userLoginByMpOpen(WxOAuth2UserInfo wxOAuth2UserInfo, HttpServletRequest request);
-
-    /**
-     * 获取当前登录用户
-     *
-     * @param request
-     * @return
-     */
-    User getLoginUser(HttpServletRequest request);
 
 
     /**
@@ -72,40 +47,6 @@ public interface UserService extends IService<User> {
      * @return
      */
     User getLoginUser();
-
-
-
-    /**
-     * 获取当前登录用户（允许未登录）
-     *
-     * @param request
-     * @return
-     */
-    User getLoginUserPermitNull(HttpServletRequest request);
-
-    /**
-     * 是否为管理员
-     *
-     * @param request
-     * @return
-     */
-    boolean isAdmin(HttpServletRequest request);
-
-    /**
-     * 是否为管理员
-     *
-     * @param user
-     * @return
-     */
-    boolean isAdmin(User user);
-
-    /**
-     * 用户注销
-     *
-     * @param request
-     * @return
-     */
-    boolean userLogout(HttpServletRequest request);
 
     /**
      * 用户登录

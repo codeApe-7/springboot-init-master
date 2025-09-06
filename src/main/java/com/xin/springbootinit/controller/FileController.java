@@ -12,25 +12,23 @@ import com.xin.springbootinit.model.dto.file.UploadFileRequest;
 import com.xin.springbootinit.model.entity.User;
 import com.xin.springbootinit.model.enums.FileUploadBizEnum;
 import com.xin.springbootinit.service.UserService;
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Date;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
 import com.xin.springbootinit.utils.DateUtils;
-import io.swagger.annotations.ApiOperation;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.util.StringUtil;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Date;
 
 import static com.xin.springbootinit.constant.RedisKeyConstant.REDIS_USER_UPLOAD_FILE_KEY;
 
@@ -62,7 +60,6 @@ public class FileController {
      * @return
      */
     @PostMapping("/upload")
-    @ApiOperation("文件上传Cos")
     public BaseResponse<String> uploadFile(@RequestPart("file") MultipartFile multipartFile,
             UploadFileRequest uploadFileRequest) {
         String biz = uploadFileRequest.getBiz();

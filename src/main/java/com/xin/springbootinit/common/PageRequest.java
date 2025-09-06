@@ -1,6 +1,5 @@
 package com.xin.springbootinit.common;
 
-import com.xin.springbootinit.constant.CommonConstant;
 import lombok.Data;
 
 /**
